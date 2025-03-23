@@ -35,3 +35,10 @@ variable "subnet_id" {
   description = "The subnet ID where the EC2 instance will be created"
   type        = string
 }
+
+
+variable "instance_name" {
+  description = "name for the instance"
+  type        = string
+  default     = "bastion-host"
+}

@@ -6,12 +6,12 @@ resource "aws_iam_role" "eks_cluster_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "eks.amazonaws.com"
         }
-        Effect    = "Allow"
-        Sid       = ""
+        Effect = "Allow"
+        Sid    = ""
       },
     ]
   })
@@ -28,15 +28,15 @@ resource "aws_iam_role_policy_attachment" "eks_vpc_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }
 
- 
+
 # Create the EKS cluster
 resource "aws_eks_cluster" "eks_cluster" {
   name     = var.cluster_name
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
-    subnet_ids = var.subnet_ids  # Use the subnet IDs passed from the root module
-    endpoint_public_access = true
+    subnet_ids              = var.subnet_ids 
+    endpoint_public_access  = true
     endpoint_private_access = false
   }
 
@@ -51,12 +51,12 @@ resource "aws_iam_role" "eks_node_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
-        Effect    = "Allow"
-        Sid       = ""
+        Effect = "Allow"
+        Sid    = ""
       },
     ]
   })
@@ -83,13 +83,14 @@ resource "aws_iam_role_policy_attachment" "eks_cni_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
+
+
 # Create the EKS Node Group
 resource "aws_eks_node_group" "eks_node_group" {
-  cluster_name    = aws_eks_cluster.eks_cluster.name
-  node_group_name = "${var.cluster_name}-node-group"
-  node_role_arn   = aws_iam_role.eks_node_role.arn
-  subnet_ids = var.subnet_ids  # Use the subnet IDs passed from the root module
-
+  cluster_name           = aws_eks_cluster.eks_cluster.name
+  node_group_name        = "${var.cluster_name}-node-group"
+  node_role_arn          = aws_iam_role.eks_node_role.arn
+  subnet_ids             = var.subnet_ids 
   scaling_config {
     desired_size = var.desired_capacity
     max_size     = var.max_capacity
@@ -97,6 +98,11 @@ resource "aws_eks_node_group" "eks_node_group" {
   }
 
   instance_types = [var.node_instance_type]
+
+
 }
+
+
+
 
 

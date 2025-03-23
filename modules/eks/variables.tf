@@ -59,3 +59,11 @@ variable "subnet_ids" {
 }
 
 
+variable "ami_id" {
+  description = "An array of strings"
+  type        = any
+  default     = "ami-00bb6a80f01f03502"
+}
+
+
+

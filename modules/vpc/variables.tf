@@ -2,14 +2,14 @@
 variable "region" {
   description = "The AWS region where the resources will be created"
   type        = string
-  default     = "ap-south-1"  # You can change this default value
+  default     = "ap-south-1" # You can change this default value
 }
 
 # VPC CIDR block
 variable "vpc_cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
-  default     = "10.0.0.0/16"  # Adjust the CIDR block if needed
+  default     = "10.0.0.0/16" # Adjust the CIDR block if needed
 }
 
 
@@ -21,11 +21,18 @@ variable "subnet_cidrs" {
 }
 
 
+# Private Subnet CIDR block
+variable "private_subnet_cidrs" {
+  type    = list(string)
+  default = ["10.0.3.0/24", "10.0.4.0/24"]
+}
+
+
 # Availability Zones
 variable "availability_zones" {
   description = "A list of availability zones in the region"
   type        = list(string)
-  default     = ["ap-south-1a", "ap-south-1b"]  # Modify with available AZs
+  default     = ["ap-south-1a", "ap-south-1b"]
 }
 
 # Enable DNS Support for VPC
@@ -40,4 +47,11 @@ variable "enable_dns_hostnames" {
   description = "Enable DNS hostnames for the VPC"
   type        = bool
   default     = true
+}
+
+
+
+variable "vpc_id" {
+  description = "The ID of the VPC to create resources in"
+  type        = string
 }

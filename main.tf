@@ -14,26 +14,33 @@ provider "aws" {
 }
 
 module "demo-vpc" {
-  source = "./modules/vpc"  
+  source = "./modules/vpc"
+  vpc_id = module.demo-vpc.vpc_id
 }
 
 
 module "demo-eks" {
-  source = "./modules/eks"
-  vpc_id = module.demo-vpc.vpc_id
-  subnet_ids = [
-    module.demo-vpc.public_subnet_1_id,  
-    module.demo-vpc.public_subnet_2_id  
-  ]
+  source     = "./modules/eks"
+  vpc_id     = module.demo-vpc.vpc_id
+  subnet_ids = module.demo-vpc.private_subnet_ids
   depends_on = [module.demo-vpc]
 }
 
 
-#module "ec2-server" {
- # source = "./modules/ec2"
-  #vpc_id = module.demo-vpc.vpc_id
-  #subnet_id = module.demo-vpc.public_subnet_1_id
-#}
+module "ec2-server" {
+  source    = "./modules/ec2"
+  vpc_id    = module.demo-vpc.vpc_id
+  subnet_id = module.demo-vpc.public_subnet_ids[0]
+}
+
+
+module "jenkins" {
+  source    = "./modules/ec2"
+  vpc_id    = module.demo-vpc.vpc_id
+  subnet_id = module.demo-vpc.public_subnet_ids[1]
+  instance_type = "t2.medium"
+  instance_name = "jenkins-server"
+}
 
 
 
@@ -46,6 +53,6 @@ module "demo-eks" {
 
 
 
- 
+
 
 

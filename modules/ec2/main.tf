@@ -1,9 +1,26 @@
+resource "random_id" "bastion_suffix" {
+  byte_length = 4
+}
+
+resource "random_id" "jenkins_suffix" {
+  byte_length = 4
+}
+
 # Define a security group for the EC2 instance
-resource "aws_security_group" "example" {
-  name        = "dev-SG"
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion-SG-${random_id.bastion_suffix.hex}"
   description = "Allow inbound SSH and HTTP access"
   vpc_id      = var.vpc_id
+}
 
+  resource "aws_security_group" "jenkins_sg" {
+  name        = "jenkins-SG-${random_id.jenkins_suffix.hex}"
+  description = "Security group for Jenkins Server"
+  vpc_id      = var.vpc_id
+
+
+ 
+  
   # Allow SSH access on port 22 from anywhere (0.0.0.0/0)
   ingress {
     from_port   = 22
@@ -35,10 +52,11 @@ resource "aws_instance" "dev-server" {
   ami           = var.ami_id
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
-
+  
 
   # Associate the security group
-  vpc_security_group_ids = [aws_security_group.example.id]
+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+  
 
   # Define the key pair for SSH access
   key_name = var.key_name
@@ -56,6 +74,6 @@ resource "aws_instance" "dev-server" {
 
 
   tags = {
-    Name = "dev-server"
+    Name = var.instance_name
   }
 }
