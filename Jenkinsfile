@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = credentials('aws-region')
-        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+        AWS_ACCESS_KEY_ID = credentials('aws-credentials')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
         EKS_CLUSTER_NAME = credentials('eks-cluster-name') 
     }
 
@@ -19,7 +19,13 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    sh 'terraform init'
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                                      credentialsId: 'aws-credentials',  // The ID of the Jenkins AWS credentials
+                                      accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Now you can use the AWS environment variables in your Terraform commands
+                        sh "${TERRAFORM_HOME} init"
+                    }
                 }
             }
         }
@@ -27,7 +33,13 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
-                    sh 'terraform plan -out=solv-india-infra.tfplan'
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                                      credentialsId: 'aws-credentials',  // The ID of the Jenkins AWS credentials
+                                      accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Now you can use the AWS environment variables in your Terraform commands
+                        sh "${TERRAFORM_HOME} plan"
+                    }
                 }
             }
         }
