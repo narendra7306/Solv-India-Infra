@@ -5,7 +5,8 @@ pipeline {
         AWS_DEFAULT_REGION = credentials('aws-region')
         AWS_ACCESS_KEY_ID = credentials('aws-credentials')
         AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
-        EKS_CLUSTER_NAME = credentials('eks-cluster-name') 
+        EKS_CLUSTER_NAME = credentials('eks-cluster-name')
+        TERRAFORM_HOME = '/usr/local/bin/terraform' 
     }
 
     stages {
