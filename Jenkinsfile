@@ -31,23 +31,6 @@ pipeline {
                 }
             }
         }
-
-       /*  stage('Terraform Apply') {
-            steps {
-                script {
-                    sh 'terraform apply -auto-approve solv-india-infra.tfplan'
-                }
-            }
-        }
-
-        stage('Configure Kubeconfig') {
-            steps {
-                script {
-                    sh 'aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}'
-                }
-            }
-        } */
-
         
     }
 
