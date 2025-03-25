@@ -2,11 +2,10 @@ pipeline {
     agent any
 
     environment {
-        AWS_PROFILE = 'default'
-        AWS_DEFAULT_REGION = credentials('aws-region')
-        AWS_ACCESS_KEY_ID = credentials('aws-credentials')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
-        EKS_CLUSTER_NAME = credentials('eks-cluster-name')
+        AWS_DEFAULT_REGION = 'ap-south-1'
+        #AWS_ACCESS_KEY_ID = credentials('aws-credentials')
+        #AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
+        #EKS_CLUSTER_NAME = credentials('eks-cluster-name')
         TERRAFORM_HOME = '/usr/local/bin/terraform' 
     }
 
@@ -26,7 +25,7 @@ pipeline {
                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Now you can use the AWS environment variables in your Terraform commands
-                        sh "${TERRAFORM_HOME} init"
+                        sh "set -ex && ${TERRAFORM_HOME} init"
                     }
                 }
             }
@@ -40,7 +39,7 @@ pipeline {
                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Now you can use the AWS environment variables in your Terraform commands
-                        sh "${TERRAFORM_HOME} plan"
+                        sh "set -ex && ${TERRAFORM_HOME} plan"
                     }
                 }
             }
