@@ -7,7 +7,7 @@ pipeline {
         choice(name: 'GIT_BRANCH', choices: ['private-subnet', 'main', 'dev'], description: 'Git branch to checkout')
         
        // Terraform Version (String Parameter)
-       string(name: 'TERRAFORM_VERSION', defaultValue: '1.11.2', description: 'Terraform version to use')
+       string(name: 'TERRAFORM_VERSION', defaultValue: '1.4.5', description: 'Terraform version to use')
 
         // Terraform Workspace (String Parameter)
         string(name: 'TERRAFORM_WORKSPACE', defaultValue: 'dev-env', description: 'Terraform workspace to use')
