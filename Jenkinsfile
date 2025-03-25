@@ -39,7 +39,7 @@ pipeline {
                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Now you can use the AWS environment variables in your Terraform commands
-                        sh "set -ex && ${TERRAFORM_HOME} plan"
+                        sh "${TERRAFORM_HOME} plan -out=solv-india-infra.tfplan"
                     }
                 }
             }
