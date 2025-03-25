@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    parameters {
+
+        // Choice parameter for Git branches
+        choice(name: 'GIT_BRANCH', choices: ['private-subnet', 'main', 'dev'], description: 'Git branch to checkout')
+
+    }
+
     environment {
         TERRAFORM_HOME = '/usr/local/bin/terraform'
         AWS_DEFAULT_REGION = 'ap-south-1' 
@@ -10,7 +17,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your Terraform configuration repository
-                checkout scmGit(branches: [[name: '*/private-subnet']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/narendra7306/Solv-India-Infra.git']])
+                checkout scmGit(branches: [[name: "*/${params.GIT_BRANCH}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/narendra7306/Solv-India-Infra.git']])
             }
         }
 
