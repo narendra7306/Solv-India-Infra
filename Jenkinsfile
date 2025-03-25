@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'ap-south-1'
-        #AWS_ACCESS_KEY_ID = credentials('aws-credentials')
-        #AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
-        #EKS_CLUSTER_NAME = credentials('eks-cluster-name')
+        //AWS_ACCESS_KEY_ID = credentials('aws-credentials')
+        //AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
+        //EKS_CLUSTER_NAME = credentials('eks-cluster-name')
         TERRAFORM_HOME = '/usr/local/bin/terraform' 
     }
 
