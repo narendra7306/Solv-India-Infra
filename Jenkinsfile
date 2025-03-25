@@ -21,7 +21,7 @@ pipeline {
     }
 
     environment {
-        TERRAFORM_HOME = "/usr/local/bin/terraform/${params.TERRAFORM_VERSION}"
+        TERRAFORM_HOME = '/usr/local/bin/terraform'
         AWS_DEFAULT_REGION = 'ap-south-1' 
     }
 
