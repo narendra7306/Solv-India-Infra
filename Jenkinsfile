@@ -15,6 +15,9 @@ pipeline {
         // Boolean parameter to decide whether to apply the Terraform plan
         booleanParam(name: 'APPLY_PLAN', defaultValue: true, description: 'Apply Terraform Plan after creation')
 
+        // Boolean parameter to decide whether to destroy the Terraform resources
+        booleanParam(name: 'DESTROY_TERRAFORM', defaultValue: true, description: 'Run terraform destroy after applying the plan?')
+
     }
 
     environment {
@@ -74,6 +77,24 @@ pipeline {
                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Apply the Terraform plan if APPLY_PLAN is true
                         sh "set -ex && ${TERRAFORM_HOME} apply -auto-approve ${params.TERRAFORM_PLAN_FILE}"
+                    }
+                }
+            }
+        }
+
+
+        stage('Terraform Destroy') {
+            when {
+                expression { return params.DESTROY_TERRAFORM }
+            }
+            steps {
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                                      credentialsId: 'aws-credentials', 
+                                      accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Run terraform destroy if DESTROY_TERRAFORM is true
+                        sh "set -ex && ${TERRAFORM_HOME} destroy -auto-approve"
                     }
                 }
             }
