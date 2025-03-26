@@ -9,9 +9,6 @@ pipeline {
        // Terraform Version (String Parameter)
        string(name: 'TERRAFORM_VERSION', defaultValue: '1.4.5', description: 'Terraform version to use')
 
-        // Terraform Workspace (String Parameter)
-        string(name: 'TERRAFORM_WORKSPACE', defaultValue: 'dev-env', description: 'Terraform workspace to use')
-
         // Plan file name (String Parameter)
         string(name: 'TERRAFORM_PLAN_FILE', defaultValue: 'solv-india-infra.tfplan', description: 'Terraform Plan file name')
 
@@ -43,16 +40,6 @@ pipeline {
                         // Now you can use the AWS environment variables in your Terraform commands
                         sh "set -ex && ${TERRAFORM_HOME} init -input=false"
                     }
-                }
-            }
-        }
-
-
-        stage('Terraform Workspace') {
-            steps {
-                script {
-                    // Select or create the Terraform workspace
-                    sh "${TERRAFORM_HOME} workspace select ${params.TERRAFORM_WORKSPACE} || ${TERRAFORM_HOME} workspace new ${params.TERRAFORM_WORKSPACE}"
                 }
             }
         }
