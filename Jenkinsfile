@@ -54,8 +54,9 @@ pipeline {
                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Run Terraform plan with a custom plan file name
                         def planCmd = "${TERRAFORM_HOME} plan -out=${params.TERRAFORM_PLAN_FILE}"
+                        sh "set -ex && ${planCmd}"
                     }
-                    sh "set -ex && ${planCmd}"
+                    
                 }
             }
         }
