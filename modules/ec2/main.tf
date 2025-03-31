@@ -47,7 +47,7 @@ resource "aws_security_group" "bastion_sg" {
 }
 
 # Create an EC2 instance
-resource "aws_instance" "dev-server" {
+resource "aws_instance" "jenkins_instance" {
   count         = var.instance_count
   ami           = var.ami_id
   instance_type = var.instance_type
