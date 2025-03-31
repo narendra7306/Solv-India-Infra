@@ -53,12 +53,12 @@ resource "aws_security_group" "bastion_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow HTTP access on port 80 from anywhere (0.0.0.0/0)
+  # Allow HTTP access on port 8080 from ALB SG
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.alb_sg.id]
   }
 
   # Allow all outbound traffic
