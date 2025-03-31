@@ -79,35 +79,6 @@ resource "aws_route_table_association" "private_subnet_association" {
 }
 
 
-# Define a security group for the EC2 instance
-resource "aws_security_group" "eks_nodegroup_sg" {
-  name        = "eks-nodegroup-SG"
-  description = "Allow inbound SSH and HTTP access"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 10250
-    to_port     = 10250
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # Allow all outbound traffic
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 
 # Elastic IP for NAT Gateway
 resource "aws_eip" "nat_eip" {
