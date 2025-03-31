@@ -6,12 +6,38 @@ resource "random_id" "jenkins_suffix" {
   byte_length = 4
 }
 
-# Define a security group for the EC2 instance
+# Define a security group for the Bastion Host
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-SG-${random_id.bastion_suffix.hex}"
   description = "Allow inbound SSH and HTTP access"
   vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH from anywhere (use specific IP ranges for security)
+  }
+
+
+  # Allow HTTP access on port 80 from anywhere (0.0.0.0/0)
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
+
 
   resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins-SG-${random_id.jenkins_suffix.hex}"
@@ -19,8 +45,6 @@ resource "aws_security_group" "bastion_sg" {
   vpc_id      = var.vpc_id
 
 
- 
-  
   # Allow SSH access on port 22 from anywhere (0.0.0.0/0)
   ingress {
     from_port   = 22
