@@ -42,3 +42,10 @@ variable "instance_name" {
   type        = string
   default     = "bastion-host"
 }
+
+
+variable "alb_sg_id" {
+  description = "Security group ID of the ALB"
+  type        = string
+}
+

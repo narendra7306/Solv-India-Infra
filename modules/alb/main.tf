@@ -1,6 +1,6 @@
 # Security Group for ALB
 resource "aws_security_group" "alb_sg" {
-  name        = "alb_sg"
+  name_prefix = "alb-sg"
   description = "Security group for the ALB"
   vpc_id      = var.vpc_id
 

@@ -53,12 +53,12 @@ resource "aws_security_group" "bastion_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow HTTP access on port 8080 from ALB SG
+  # Allow traffic from ALB Security Group on port 8080 (Jenkins-specific)
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    security_groups = [aws_security_group.alb_sg.id]
+    security_groups = [var.alb_sg_id]
   }
 
   # Allow all outbound traffic
@@ -79,7 +79,7 @@ resource "aws_instance" "jenkins_instance" {
   
 
   # Associate the security group
-  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+  vpc_security_group_ids = [aws_security_group.jenkins_sg.id, aws_security_group.bastion_sg.id]
   
 
   # Define the key pair for SSH access
