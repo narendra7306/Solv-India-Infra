@@ -92,7 +92,7 @@ resource "aws_nat_gateway" "nat-gw" {
   subnet_id     = aws_subnet.public_subnet[0].id
 
   tags = {
-    Name = "eks-nat-gw"
+    Name = "alb-nat-gw"
   }
 }
 

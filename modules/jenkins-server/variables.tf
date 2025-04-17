@@ -44,8 +44,21 @@ variable "instance_name" {
 }
 
 
-variable "alb_sg_id" {
+/* variable "alb_sg_id" {
   description = "Security group ID of the ALB"
   type        = string
+} */
+
+
+variable "bastion_cidr" {
+  description = "Security group ID of the ALB"
+  type        = any
+  default     = ["192.168.10.0/24", "192.168.11.0/24"]
 }
+
+
+variable "subnet_cidrs" {
+  description = "A list of two subnet CIDRs"
+}
+
 
