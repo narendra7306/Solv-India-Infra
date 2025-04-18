@@ -5,6 +5,7 @@ pipeline {
         AWS_REGION = 'ap-south-1' // Change as needed
         TF_VERSION = '1.5.0'     // Update to your desired Terraform version
         AWS_CREDENTIALS = credentials('dev-aws-creds') // Jenkins AWS credentials ID
+        TERRAFORM_HOME = '/usr/local/bin/terraform'
     }
 
     tools {
@@ -24,10 +25,7 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'dev-aws-creds'
                 ]]) {
-                    sh '''
-                        echo "Running terraform init with AWS credentials..."
-                        terraform init
-                    '''
+                    sh "set -ex && ${TERRAFORM_HOME} init -input=false"
                 }
             }
         }
