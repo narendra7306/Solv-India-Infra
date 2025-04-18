@@ -8,7 +8,7 @@ pipeline {
     }
 
     tools {
-        terraform-50319
+        terraform 'terraform-50319'
     }
 
     stages {
