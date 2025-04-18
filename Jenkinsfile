@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/narendra7306/Solv-India-Infra.git', branch: 'eks'
+                git credentialsId: 'github-cred', url: 'https://github.com/narendra7306/Solv-India-Infra.git', branch: 'eks'
             }
         }
 
