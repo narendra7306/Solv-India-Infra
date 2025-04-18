@@ -22,7 +22,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds'
+                    credentialsId: 'dev-aws-creds'
                 ]]) {
                     sh '''
                         echo "Running terraform init with AWS credentials..."
