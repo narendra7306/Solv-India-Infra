@@ -25,7 +25,7 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'dev-aws-creds'
                 ]]) {
-                    sh "set -ex && ${TERRAFORM_HOME} init -input=false"
+                    sh '/usr/local/bin/terraform init -input=false'
                 }
             }
         }
