@@ -11,7 +11,7 @@ data "aws_lb" "jenkins_server_alb" {
 # Create an A record (alias) pointing to the ALB
 resource "aws_route53_record" "alb_record" {
   zone_id = aws_route53_zone.main.zone_id
-  name    = var.domain_name
+  name    = var.record_name
   type    = "A"
 
   alias {
