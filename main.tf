@@ -27,20 +27,7 @@ module "demo-eks" {
 }
 
 
-module "ec2-server" {
-  source    = "./modules/ec2"
-  vpc_id    = module.demo-vpc.vpc_id
-  subnet_id = module.demo-vpc.public_subnet_ids[0]
-}
 
-
-module "jenkins" {
-  source    = "./modules/ec2"
-  vpc_id    = module.demo-vpc.vpc_id
-  subnet_id = module.demo-vpc.public_subnet_ids[1]
-  instance_type = "t2.medium"
-  instance_name = "jenkins-server"
-}
 
 
 
