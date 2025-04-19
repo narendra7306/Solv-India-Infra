@@ -86,7 +86,7 @@ pipeline {
                 expression { params.ACTION == 'destroy' }
             }
             steps {
-                sh 'terraform destroy -auto-approve'
+                sh 'terraform destroy -var "region=${AWS_REGION}" -auto-approve'
             }
         }
     }
