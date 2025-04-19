@@ -74,7 +74,7 @@ pipeline {
 
             steps {
                 sh '''
-                terraform plan -out=tfplan.out
+                terraform plan -var "region=${AWS_REGION}" -out=tfplan.out 
                 terraform apply -auto-approve tfplan.out
                 '''
 
