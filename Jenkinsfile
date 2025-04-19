@@ -73,7 +73,6 @@ pipeline {
             }
 
             steps {
-                input message: "Approve Terraform Apply?"
                 sh 'terraform apply -auto-approve tfplan.out'
             }
         }
@@ -83,7 +82,6 @@ pipeline {
                 expression { params.ACTION == 'destroy' }
             }
             steps {
-                input message: "Approve Terraform Destroy?"
                 sh 'terraform destroy -auto-approve'
             }
         }
