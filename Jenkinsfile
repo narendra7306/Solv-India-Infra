@@ -73,7 +73,11 @@ pipeline {
             }
 
             steps {
-                sh 'terraform apply -auto-approve tfplan.out'
+                sh '''
+                terraform plan -out=tfplan.out
+                terraform apply -auto-approve tfplan.out
+                '''
+
             }
         }
 
