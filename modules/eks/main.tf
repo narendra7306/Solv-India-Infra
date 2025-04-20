@@ -99,6 +99,10 @@ resource "aws_eks_node_group" "eks_node_group" {
 
   instance_types = [var.node_instance_type]
 
+  tags = {
+    Name = "eks-node-solvIndia"     #  This is the EC2 instance name tag
+  }
+
 
 }
 
