@@ -10,13 +10,14 @@ terraform {
 provider "aws" {
   shared_config_files      = ["~/.aws/config"]
   shared_credentials_files = ["~/.aws/credentials"]
-  // profile                  = "default"
+  profile                  = "default"
 }
 
-module "demo-vpc" {
-  source = "./modules/vpc"
-  vpc_id = module.demo-vpc.vpc_id
+/* module "demo-vpc" {
+  source    = "./modules/vpc"
+  vpc_id    = module.demo-vpc.vpc_id
 }
+
 
 
 module "demo-eks" {
@@ -24,9 +25,13 @@ module "demo-eks" {
   vpc_id     = module.demo-vpc.vpc_id
   subnet_ids = module.demo-vpc.private_subnet_ids
   depends_on = [module.demo-vpc]
+} */
+
+
+
+module "vpc-peer" {
+  source   = "./modules/vpc-peering"
 }
-
-
 
 
 
