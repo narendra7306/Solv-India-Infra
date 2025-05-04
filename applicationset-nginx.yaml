@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/narendra7306/Solv-India-Infra.git
         revision: eks
         directories:
-          - path: "*"
+          - path: "environments/*"
   template:
     metadata:
       name: 'nginx-{{path.basename}}'
