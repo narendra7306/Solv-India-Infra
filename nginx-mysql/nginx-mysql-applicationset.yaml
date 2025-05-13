@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-mysql-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: mysql
+            path: nginx-mysql/mysql
+            wave: "0"
+          - name: nginx
+            path: nginx-mysql/nginx
+            wave: "1"
+  template:
+    metadata:
+      name: '{{name}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{wave}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/narendra7306/Solv-India-Infra.git
+        targetRevision: eks
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

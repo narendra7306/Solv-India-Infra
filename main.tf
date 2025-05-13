@@ -11,7 +11,7 @@ provider "aws" {
   shared_config_files      = ["~/.aws/config"]
   shared_credentials_files = ["~/.aws/credentials"]
 }
-
+ 
 module "demo-vpc" {
   source = "./modules/vpc"
   vpc_id = module.demo-vpc.vpc_id
@@ -62,9 +62,15 @@ resource "aws_lb" "my_alb" {
   load_balancer_type = "application"
   security_groups    = ["sg-01962224d0ef5e611"]  # Your actual security group ID
   subnets            = ["subnet-0668ff9e9da0b60d4", "subnet-0534d049f9efe1a26"]  # Your actual subnet IDs
+} 
+
+
+module "postgres" {
+  source        = "./modules/postgres-rds"
+  vpc_id        = module.demo-vpc.vpc_id
+  subnet_ids    = module.demo-vpc.private_subnet_ids
+  db_password   = var.db_password
 }
-
-
 
 
 
