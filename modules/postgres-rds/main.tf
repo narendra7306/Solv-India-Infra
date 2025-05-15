@@ -9,14 +9,15 @@ resource "aws_db_subnet_group" "postgres_subnet_group" {
 
 resource "aws_security_group" "postgres_sg" {
   name        = "postgres-sg"
-  description = "Allow PostgreSQL access"
+  description = "Allow PostgreSQL access from jenkins only"
   vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = var.allowed_cidr_blocks
+    source_security_group_id = aws_security_group.jenkins_sg.id # Jenkins SG
+    description              = "Allow PostgreSQL access from Jenkins SG"
   }
 
   egress {
