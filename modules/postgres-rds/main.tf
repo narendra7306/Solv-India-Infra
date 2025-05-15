@@ -16,8 +16,8 @@ resource "aws_security_group" "postgres_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    source_security_group_id = aws_security_group.jenkins_sg.id # Jenkins SG
-    description              = "Allow PostgreSQL access from Jenkins SG"
+    cidr_blocks = ["192.168.9.130/32"]
+    description = "Allow PostgreSQL access from Jenkins SG"
   }
 
   egress {
