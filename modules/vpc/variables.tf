@@ -9,15 +9,22 @@ variable "region" {
 variable "vpc_cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
-  default     = "10.0.0.0/16"  # Adjust the CIDR block if needed
+  default     = "192.168.0.0/16"  # Adjust the CIDR block if needed
 }
 
 
 # Public Subnet CIDR block
-variable "subnet_cidrs" {
+variable "public_subnet_cidrs" {
   description = "A list of two subnet CIDRs"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["192.168.1.0/24", "192.168.2.0/24"]
+}
+
+
+variable "private_subnet_cidrs" {
+  description = "List of CIDR blocks for private subnets"
+  type        = list(string)
+  default     = ["192.168.10.0/24", "192.168.11.0/24"]
 }
 
 

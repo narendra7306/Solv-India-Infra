@@ -14,11 +14,13 @@ provider "aws" {
 }
 
 module "demo-vpc" {
-  source = "./modules/vpc"  
+  source = "./modules/vpc"
+  public_subnet_cidrs  = ["192.168.1.0/24", "192.168.2.0/24"]
+  private_subnet_cidrs = ["192.168.10.0/24", "192.168.11.0/24"]  
 }
 
 
-module "demo-eks" {
+/* module "demo-eks" {
   source = "./modules/eks"
   vpc_id = module.demo-vpc.vpc_id
   subnet_ids = [
@@ -29,11 +31,11 @@ module "demo-eks" {
 }
 
 
-#module "ec2-server" {
- # source = "./modules/ec2"
-  #vpc_id = module.demo-vpc.vpc_id
-  #subnet_id = module.demo-vpc.public_subnet_1_id
-#}
+module "ec2-server" {
+  source = "./modules/ec2"
+  vpc_id = module.demo-vpc.vpc_id
+  subnet_id = module.demo-vpc.public_subnet_1_id
+} */
 
 
 
