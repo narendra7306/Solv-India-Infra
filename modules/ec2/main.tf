@@ -46,6 +46,14 @@ resource "aws_security_group" "bastion_sg" {
   }
 }
 
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "dev-key"
+  public_key = file("Z:\home\seelam\Solv-India-Infra\dev-key.pub")
+}
+
+
+
 # Create an EC2 instance
 resource "aws_instance" "dev-server" {
   count         = var.instance_count
@@ -59,7 +67,7 @@ resource "aws_instance" "dev-server" {
   
 
   # Define the key pair for SSH access
-  key_name = var.key_name
+  key_name = aws_key_pair.deployer.dev-key
 
 
   user_data = <<-EOF
