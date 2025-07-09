@@ -1,5 +1,21 @@
 *.pem
-.terraform/
-terraform.tfstate
-terraform.tfstate.backup
+*.pub
+# Terraform state files
+*.tfstate
+*.tfstate.backup
 
+# Crash log (if Terraform crashes)
+crash.log
+
+# Terraform plan file
+*.tfplan
+
+# Terraform lock file (optional - depends on your policy)
+.terraform.lock.hcl
+
+# Terraform working directory
+.terraform/
+
+# Sensitive override files
+terraform.tfvars
+*.tfvars
