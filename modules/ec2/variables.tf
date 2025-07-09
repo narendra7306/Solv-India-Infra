@@ -22,7 +22,7 @@ variable "key_name" {
 variable "ami_id" {
   description = "An array of strings"
   type        = any
-  default     = "ami-00bb6a80f01f03502"
+  default     = "ami-0f918f7e67a3323f0"
 }
 
 

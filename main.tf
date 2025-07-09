@@ -28,14 +28,14 @@ module "demo-vpc" {
     module.demo-vpc.public_subnet_2_id  
   ]
   depends_on = [module.demo-vpc]
-}
+} */
 
 
 module "ec2-server" {
   source = "./modules/ec2"
   vpc_id = module.demo-vpc.vpc_id
   subnet_id = module.demo-vpc.public_subnet_1_id
-} */
+}
 
 
 
