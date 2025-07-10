@@ -13,21 +13,21 @@ provider "aws" {
   profile                  = "default"
 }
 
-module "demo-vpc" {
+module "solv-vpc" {
   source = "./modules/vpc"
-  public_subnet_cidrs  = ["10.0.1.0/24", "10.10.2.0/24"]
-  private_subnet_cidrs = ["10.0.10.0/24", "10.0.11.0/24"]  
+  public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]  
 }
 
 
 module "demo-eks" {
   source = "./modules/eks"
-  vpc_id = module.demo-vpc.vpc_id
+  vpc_id = module.solv-vpc.vpc_id
   subnet_ids = [
-    module.demo-vpc.public_subnet_1_id,  
-    module.demo-vpc.public_subnet_2_id  
+    module.solv-vpc.public_subnet_0_id,  
+    module.solv-vpc.public_subnet_1_id  
   ]
-  depends_on = [module.demo-vpc]
+  depends_on = [module.solv-vpc]
 }
 
 
