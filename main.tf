@@ -48,21 +48,21 @@ module "jenkins" {
 
 
 
-module "route53" {
+/* module "route53" {
   source      = "./modules/route53-hostedzone"
   domain_name = "seelam-dev.store"
   record_name = "jenkins.seelam-dev.store"
   alb_name    = "jenkins-alb" # Replace with your actual ALB name
-}
+} */
 
 
-resource "aws_lb" "my_alb" {
+/* resource "aws_lb" "my_alb" {
   name               = "jenkins-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = ["sg-01962224d0ef5e611"]  # Your actual security group ID
   subnets            = ["subnet-0668ff9e9da0b60d4", "subnet-0534d049f9efe1a26"]  # Your actual subnet IDs
-}
+} */
 
 
 
