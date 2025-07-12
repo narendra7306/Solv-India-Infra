@@ -5,7 +5,7 @@ resource "aws_vpc" "main_vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
-    Name = "demo-vpc"
+    Name = "userdata-vpc"
   }
 }
 

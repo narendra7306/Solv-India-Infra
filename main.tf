@@ -27,14 +27,14 @@ module "dev-bastion" {
 
 
 module "jenkins" {
-  source             = "./modules/jenkins-server"
-  vpc_id             = module.demo-vpc.vpc_id
-  subnet_id          = module.demo-vpc.private_subnet_ids[1]
-  instance_type      = "t2.medium"
-  instance_name      = "jenkins-server"
+  source        = "./modules/jenkins-server"
+  vpc_id        = module.demo-vpc.vpc_id
+  subnet_id     = module.demo-vpc.private_subnet_ids[1]
+  instance_type = "t2.medium"
+  instance_name = "jenkins-userdata"
   #alb_sg_id          = module.alb.alb_sg_id
-  bastion_cidr       = module.dev-bastion.bastion_sg
-  subnet_cidrs       = module.demo-vpc.public_subnet_ids[0]
+  bastion_cidr = module.dev-bastion.bastion_sg
+  subnet_cidrs = module.demo-vpc.public_subnet_ids[0]
 }
 
 

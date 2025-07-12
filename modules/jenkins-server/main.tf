@@ -14,7 +14,7 @@ resource "aws_security_group" "jenkins_sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["192.168.10.0/24", "192.168.11.0/24"]
+    cidr_blocks = ["10.0.10.0/24", "10.0.11.0/24"]
   }
 
   #Allow SSH port 22
@@ -22,7 +22,7 @@ resource "aws_security_group" "jenkins_sg" {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-    cidr_blocks = ["192.168.10.0/24"]
+    cidr_blocks = ["10.0.10.0/24"]
   }
 
 
@@ -47,19 +47,10 @@ resource "aws_instance" "jenkins_instance" {
   # Define the key pair for SSH access
   key_name = var.key_name
 
-  user_data = <<-EOF
-              #!/bin/bash
-              sudo apt-get update
-              sudo apt-get install -y openjdk-11-jre
-              sudo curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee \
-              /usr/share/keyrings/jenkins-archive-keyring.gpg
-              echo deb http://pkg.jenkins.io/debian/ \
-              | sudo tee /etc/apt/sources.list.d/jenkins.list
-              sudo apt-get update
-              sudo apt-get install -y jenkins
-              sudo systemctl start jenkins
-              sudo systemctl enable jenkins
-              EOF
+  user_data = filebase64("${path.module}/jenkins-server.sh")
+  user_data_replace_on_change = true
+
+    
 
   tags = {
     Name = var.instance_name

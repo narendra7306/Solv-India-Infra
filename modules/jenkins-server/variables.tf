@@ -40,7 +40,7 @@ variable "subnet_id" {
 variable "instance_name" {
   description = "name for the instance"
   type        = string
-  default     = "bastion-host"
+  default     = "userdata-bastion-host"
 }
 
 
