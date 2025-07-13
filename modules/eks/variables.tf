@@ -7,7 +7,7 @@ variable "region" {
 # EKS cluster name
 variable "cluster_name" {
   description = "The name of the EKS cluster."
-  default     = "my-eks-cluster"
+  default     = "solv-eks"
 }
 
 # VPC CIDR block
