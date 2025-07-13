@@ -14,7 +14,7 @@ resource "aws_security_group" "jenkins_sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["10.0.10.0/24", "10.0.11.0/24"]
+    cidr_blocks = ["192.168.11.0/24", "192.168.12.0/24"]
   }
 
   #Allow SSH port 22
@@ -22,7 +22,7 @@ resource "aws_security_group" "jenkins_sg" {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-    cidr_blocks = ["10.0.10.0/24"]
+    cidr_blocks = ["192.168.11.0/24"]
   }
 
 

@@ -5,7 +5,7 @@ resource "aws_vpc" "main_vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
-    Name = "userdata-vpc"
+    Name = "demo-vpc"
   }
 }
 
@@ -92,7 +92,7 @@ resource "aws_nat_gateway" "nat-gw" {
   subnet_id     = aws_subnet.public_subnet[0].id
 
   tags = {
-    Name = "alb-nat-gw"
+    Name = "demo-nat-gw"
   }
 }
 
@@ -111,8 +111,4 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 
-# Associate the private subnet with the private route table
-resource "aws_route_table_association" "private_route_table_association" {
-  subnet_id      = aws_subnet.private_subnet[0].id
-  route_table_id = aws_route_table.private_route_table.id
-}
+

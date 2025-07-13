@@ -31,10 +31,14 @@ module "jenkins" {
   vpc_id        = module.demo-vpc.vpc_id
   subnet_id     = module.demo-vpc.private_subnet_ids[1]
   instance_type = "t2.medium"
-  instance_name = "jenkins-userdata"
+  instance_name = "jenkins-server"
   #alb_sg_id          = module.alb.alb_sg_id
   bastion_cidr = module.dev-bastion.bastion_sg
   subnet_cidrs = module.demo-vpc.public_subnet_ids[0]
+  depends_on = [
+    module.demo-vpc,
+    module.demo-vpc.nat_gateway_id
+  ]
 }
 
 
